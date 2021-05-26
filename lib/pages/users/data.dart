@@ -2,23 +2,25 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
+import 'package:mclimate/models/user.dart';
 import 'package:mclimate/pages/home/page.dart';
 import 'package:mclimate/repositories/rooms.dart' as repository;
+import 'package:mclimate/repositories/users.dart';
 import '../../models/room.dart';
 import 'dart:io';
 import '../../components/error_widget.dart' as error;
 
-class RoomsData with ChangeNotifier {
-  List<Room> _rooms = [];
+class UsersData with ChangeNotifier {
+  List<User> _users = [];
   bool _isBusy = false;
   bool _isNotFound = false;
 
-  set rooms(List<Room> value) {
-    _rooms = value;
+  set users(List<User> value) {
+    _users = value;
     notifyListeners();
   }
 
-  List<Room> get rooms => _rooms;
+  List<User> get users => _users;
 
   set isBusy(bool value) {
     _isBusy = value;
@@ -36,10 +38,10 @@ class RoomsData with ChangeNotifier {
 
   void delete(context, int id) async {
     isNotFound = false;
-    rooms = [];
+    users = [];
     isBusy = true;
     http.Response response;
-    response = await repository.deleteRoom(id);
+    response = await deleteUser(id);
     if (response == null) {
       isBusy = false;
       showModalBottomSheet<void>(
@@ -79,10 +81,10 @@ class RoomsData with ChangeNotifier {
 
   void refresh(context) async {
     isNotFound = false;
-    rooms = [];
+    users = [];
     isBusy = true;
     http.Response response;
-    response = await repository.getRooms();
+    response = await getUsers();
     if (response == null) {
       isBusy = false;
       showModalBottomSheet<void>(
@@ -95,8 +97,8 @@ class RoomsData with ChangeNotifier {
         case (HttpStatus.ok):
           {
             List temp = jsonDecode(response.body);
-            rooms = temp.map<Room>((json) {
-              return Room.fromJson(json);
+            users = temp.map<User>((json) {
+              return User.fromJson(json);
             }).toList();
             break;
           }

@@ -36,58 +36,60 @@ class RoomCard extends StatelessWidget {
         ),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.start,
+          mainAxisSize: MainAxisSize.min,
           children: [
             Icon(Icons.sensor_door_rounded,
                 color: Colors.blueAccent, size: 100),
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Row(
-                  children: [
-                    SizedBox(width: 5),
-                    Text(
-                      room.name,
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.only(left: 5),
+                    child: Text(
+                      "${room.name}",
+                      overflow: TextOverflow.ellipsis,
                       style: TextStyle(
                         color: Colors.white70,
                         fontWeight: FontWeight.bold,
                         fontSize: 18,
                       ),
                     ),
-                  ],
-                ),
-                SizedBox(height: defaultPadding),
-                Row(
-                  children: [
-                    Icon(
-                      Icons.thermostat_rounded,
-                      color: Colors.white70,
-                      size: 24,
-                    ),
-                    Text(
-                      "${room.temperature}°C",
-                      style: TextStyle(
+                  ),
+                  SizedBox(height: defaultPadding),
+                  Row(
+                    children: [
+                      Icon(
+                        Icons.thermostat_rounded,
                         color: Colors.white70,
-                        fontWeight: FontWeight.bold,
-                        fontSize: 16,
+                        size: 24,
                       ),
-                    ),
-                    SizedBox(width: defaultPadding / 2),
-                    Icon(
-                      Icons.opacity_rounded,
-                      color: Colors.white70,
-                      size: 24,
-                    ),
-                    Text(
-                      "${room.humidity}%",
-                      style: TextStyle(
+                      Text(
+                        "${room.temperature}°C",
+                        style: TextStyle(
+                          color: Colors.white70,
+                          fontWeight: FontWeight.bold,
+                          fontSize: 16,
+                        ),
+                      ),
+                      SizedBox(width: defaultPadding / 2),
+                      Icon(
+                        Icons.opacity_rounded,
                         color: Colors.white70,
-                        fontWeight: FontWeight.bold,
-                        fontSize: 16,
+                        size: 24,
                       ),
-                    ),
-                  ],
-                ),
-              ],
+                      Text(
+                        "${room.humidity}%",
+                        style: TextStyle(
+                          color: Colors.white70,
+                          fontWeight: FontWeight.bold,
+                          fontSize: 16,
+                        ),
+                      ),
+                    ],
+                  ),
+                ],
+              ),
             ),
           ],
         ),

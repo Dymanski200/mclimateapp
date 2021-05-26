@@ -35,55 +35,56 @@ class ProfileCard extends StatelessWidget {
           children: [
             Icon(Icons.settings_applications_rounded,
                 color: Colors.blueAccent, size: 100),
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Row(
-                  children: [
-                    SizedBox(width: 5),
-                    Text(
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.only(left: 5),
+                    child: Text(
                       profile.name,
+                      overflow: TextOverflow.ellipsis,
                       style: TextStyle(
                         color: Colors.white70,
                         fontWeight: FontWeight.bold,
                         fontSize: 18,
                       ),
                     ),
-                  ],
-                ),
-                SizedBox(height: defaultPadding),
-                Row(
-                  children: [
-                    Icon(
-                      Icons.thermostat_rounded,
-                      color: Colors.white70,
-                      size: 24,
-                    ),
-                    Text(
-                      "${profile.targetTemperature}°C",
-                      style: TextStyle(
+                  ),
+                  SizedBox(height: defaultPadding),
+                  Row(
+                    children: [
+                      Icon(
+                        Icons.thermostat_rounded,
                         color: Colors.white70,
-                        fontWeight: FontWeight.bold,
-                        fontSize: 16,
+                        size: 24,
                       ),
-                    ),
-                    SizedBox(width: defaultPadding / 2),
-                    Icon(
-                      Icons.opacity_rounded,
-                      color: Colors.white70,
-                      size: 24,
-                    ),
-                    Text(
-                      "${profile.targetHumidity}%",
-                      style: TextStyle(
+                      Text(
+                        "${profile.targetTemperature}°C",
+                        style: TextStyle(
+                          color: Colors.white70,
+                          fontWeight: FontWeight.bold,
+                          fontSize: 16,
+                        ),
+                      ),
+                      SizedBox(width: defaultPadding / 2),
+                      Icon(
+                        Icons.opacity_rounded,
                         color: Colors.white70,
-                        fontWeight: FontWeight.bold,
-                        fontSize: 16,
+                        size: 24,
                       ),
-                    ),
-                  ],
-                ),
-              ],
+                      Text(
+                        "${profile.targetHumidity}%",
+                        style: TextStyle(
+                          color: Colors.white70,
+                          fontWeight: FontWeight.bold,
+                          fontSize: 16,
+                        ),
+                      ),
+                    ],
+                  ),
+                ],
+              ),
             ),
           ],
         ),

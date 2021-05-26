@@ -3,6 +3,7 @@ import 'package:mclimate/models/tokens.dart';
 import 'package:mclimate/pages/home/page.dart';
 import 'package:mclimate/pages/loading/page.dart';
 import 'package:mclimate/pages/rooms/page.dart';
+import 'package:mclimate/pages/users/page.dart';
 import 'components/menu_item.dart';
 import '../../constants.dart';
 import '../../services/storage.dart' as storage;
@@ -14,7 +15,23 @@ class MenuPage extends StatelessWidget {
       backgroundColor: secondaryColor,
       appBar: AppBar(
         elevation: 0,
-        title: Text("Меню"),
+        title: Row(
+          children: [
+            Text("Меню"),
+            Spacer(),
+            IconButton(
+              icon: Icon(Icons.logout),
+              onPressed: () {
+                storage.setTokens(new Tokens("", ""));
+                Navigator.pushAndRemoveUntil(
+                  context,
+                  MaterialPageRoute(builder: (context) => HomePage()),
+                  (Route<dynamic> route) => false,
+                );
+              },
+            ),
+          ],
+        ),
       ),
       body: Center(
         child: Container(
@@ -28,37 +45,13 @@ class MenuPage extends StatelessWidget {
                       Navigator.push(context,
                           MaterialPageRoute(builder: (context) => RoomsPage()));
                     }),
-                InkWell(
+                MenuItem(
+                  name: "Пользователи",
+                  icon: Icons.person,
                   onTap: () {
-                    storage.setTokens(new Tokens("", ""));
-                    Navigator.pushAndRemoveUntil(
-                      context,
-                      MaterialPageRoute(builder: (context) => HomePage()),
-                      (Route<dynamic> route) => false,
-                    );
+                    Navigator.push(context,
+                        MaterialPageRoute(builder: (context) => UsersPage()));
                   },
-                  child: Container(
-                    alignment: Alignment.center,
-                    width: double.infinity,
-                    margin: EdgeInsets.symmetric(
-                      horizontal: defaultPadding,
-                      vertical: defaultPadding / 6,
-                    ),
-                    padding: EdgeInsets.all(defaultPadding / 3),
-                    decoration: BoxDecoration(
-                      color: Colors.blueAccent,
-                      borderRadius:
-                          BorderRadius.all(Radius.circular(defaultRadius)),
-                    ),
-                    child: Text(
-                      "Выйти",
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 16,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                  ),
                 ),
                 InkWell(
                   onTap: () {
@@ -74,7 +67,7 @@ class MenuPage extends StatelessWidget {
                     width: double.infinity,
                     margin: EdgeInsets.symmetric(
                       horizontal: defaultPadding,
-                      vertical: defaultPadding / 6,
+                      vertical: defaultPadding / 2,
                     ),
                     padding: EdgeInsets.all(defaultPadding / 3),
                     decoration: BoxDecoration(

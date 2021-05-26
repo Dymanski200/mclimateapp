@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:mclimate/pages/create_device/data.dart';
 import 'package:mclimate/pages/create_profile/data.dart';
 import 'package:mclimate/pages/create_room/data.dart';
@@ -6,6 +7,7 @@ import 'package:mclimate/pages/loading/page.dart';
 import 'package:mclimate/pages/room_detail/data.dart';
 import 'package:mclimate/pages/rooms/data.dart';
 import 'package:mclimate/pages/url/data.dart';
+import 'package:mclimate/pages/users/data.dart';
 import 'constants.dart';
 import 'package:provider/provider.dart';
 import 'pages/code/data.dart';
@@ -19,14 +21,17 @@ import 'pages/activation/data.dart';
 import 'pages/password_change/data.dart';
 
 void main() async {
-  runApp(MyApp());
+  runApp(new MyApp());
 }
 
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    SystemChrome.setPreferredOrientations(
+        [DeviceOrientation.portraitUp, DeviceOrientation.portraitDown]);
     return MultiProvider(
       providers: [
+        ChangeNotifierProvider<UsersData>(create: (_) => UsersData()),
         ChangeNotifierProvider<CreateProfileData>(
             create: (_) => CreateProfileData()),
         ChangeNotifierProvider<UrlData>(create: (_) => UrlData()),

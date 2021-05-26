@@ -31,32 +31,30 @@ class RuleCard extends StatelessWidget {
           children: [
             Icon(Icons.receipt_long_outlined,
                 color: Colors.blueAccent, size: 100),
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Row(
-                  children: [
-                    SizedBox(width: 5),
-                    Text(
-                      rule.status,
-                      style: TextStyle(
-                        color: Colors.white70,
-                        fontWeight: FontWeight.bold,
-                        fontSize: 18,
-                      ),
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    rule.status,
+                    overflow: TextOverflow.ellipsis,
+                    style: TextStyle(
+                      color: Colors.white70,
+                      fontWeight: FontWeight.bold,
+                      fontSize: 18,
                     ),
-                  ],
-                ),
-                SizedBox(height: defaultPadding),
-                Text(
-                  "Отклонение: ${rule.offset}",
-                  style: TextStyle(
-                    color: Colors.white70,
-                    fontWeight: FontWeight.bold,
-                    fontSize: 16,
                   ),
-                ),
-              ],
+                  SizedBox(height: defaultPadding),
+                  Text(
+                    "Отклонение: ${rule.offset}",
+                    style: TextStyle(
+                      color: Colors.white70,
+                      fontWeight: FontWeight.bold,
+                      fontSize: 16,
+                    ),
+                  ),
+                ],
+              ),
             ),
           ],
         ),
