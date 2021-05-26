@@ -14,6 +14,8 @@ class Room {
     @required this.name,
     @required this.temperature,
     @required this.humidity,
+    @required this.targetTemperature,
+    @required this.targetHumidity,
     @required this.previousUpdate,
   });
 
@@ -23,6 +25,8 @@ class Room {
       name: json['name'],
       temperature: json['temperature'].toDouble(),
       humidity: json['humidity'].toDouble(),
+      targetTemperature: json['targetTemperature'].toDouble(),
+      targetHumidity: json['targetHumidity'].toDouble(),
       previousUpdate: DateTime.parse(json['previousUpdate']),
     );
   }

@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'package:mclimate/models/tokens.dart';
+import 'package:mclimate/pages/menu/page.dart';
 import 'package:mclimate/pages/password_change/page.dart';
 import 'package:mclimate/pages/rooms/page.dart';
 import 'package:mclimate/services/storage.dart' as storage;
@@ -16,6 +17,15 @@ class LoginData with ChangeNotifier {
   String _emailError;
   String _password;
   String _passwordError;
+
+  void clear() {
+    _isBusy = false;
+    _isGetCodeBusy = false;
+    _email = null;
+    _emailError = null;
+    _password = null;
+    _passwordError = null;
+  }
 
 //Занят
   set isBusy(bool value) {
@@ -92,8 +102,11 @@ class LoginData with ChangeNotifier {
           {
             storage.setTokens(Tokens.fromJson(jsonDecode(response.body)));
 
-            Navigator.pushReplacement(
-                context, MaterialPageRoute(builder: (context) => RoomsPage()));
+            Navigator.pushAndRemoveUntil(
+              context,
+              MaterialPageRoute(builder: (context) => MenuPage()),
+              (Route<dynamic> route) => false,
+            );
             break;
           }
         case HttpStatus.forbidden:
@@ -171,6 +184,28 @@ class RegistrationData with ChangeNotifier {
 
   String _patronymic;
   String _patronymicError;
+
+  void clear() {
+    _isBusy = false;
+
+    _email = null;
+    _emailError = null;
+
+    _password = null;
+    _passwordError = null;
+
+    _confirmPassword = null;
+    _confirmPasswordError = null;
+
+    _surname = null;
+    _surnameError = null;
+
+    _name = null;
+    _nameError = null;
+
+    _patronymic = null;
+    _patronymicError = null;
+  }
 
   set isBusy(bool value) {
     _isBusy = value;

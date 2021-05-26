@@ -1,19 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:mclimate/constants.dart';
 import 'package:provider/provider.dart';
-import 'room_card.dart';
 import '../data.dart';
+import 'history_card.dart';
 
-class MyRoomsList extends StatefulWidget {
+class HistoryList extends StatefulWidget {
+  final int roomID;
+  HistoryList(this.roomID);
   @override
-  _MyRoomsListState createState() => _MyRoomsListState();
+  _HistoryListState createState() => _HistoryListState();
 }
 
-class _MyRoomsListState extends State<MyRoomsList> {
+class _HistoryListState extends State<HistoryList> {
   @override
   void initState() {
     super.initState();
-    context.read<MyRoomsData>().refresh(context);
+    context.read<ChangesData>().refresh(context, widget.roomID);
   }
 
   @override
@@ -21,20 +23,20 @@ class _MyRoomsListState extends State<MyRoomsList> {
     return RefreshIndicator(
       color: secondaryColor,
       onRefresh: () async {
-        context.read<MyRoomsData>().refresh(context);
+        context.read<ChangesData>().refresh(context, widget.roomID);
       },
       child: Stack(
         children: [
-          ListView.builder(
-              itemCount: context.read<MyRoomsData>().rooms.length,
-              itemBuilder: (context, i) {
-                return RoomCard(room: context.read<MyRoomsData>().rooms[i]);
-              }),
-          if (context.watch<MyRoomsData>().isBusy)
+          if (context.watch<ChangesData>().isBusy)
             Center(
               child: CircularProgressIndicator(),
             ),
-          if (context.watch<MyRoomsData>().isNotFound)
+          ListView.builder(
+              itemCount: context.read<ChangesData>().changes.length,
+              itemBuilder: (context, i) {
+                return HistoryCard(context.read<ChangesData>().changes[i]);
+              }),
+          if (context.watch<ChangesData>().isNotFound)
             Center(
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,

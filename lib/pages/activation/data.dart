@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'package:mclimate/models/tokens.dart';
+import 'package:mclimate/pages/menu/page.dart';
 import 'package:mclimate/pages/rooms/page.dart';
 import 'package:mclimate/services/storage.dart' as storage;
 import 'package:flutter/material.dart';
@@ -11,6 +12,12 @@ class ActivationData with ChangeNotifier {
   bool _isBusy = false;
   String _code;
   String _codeError;
+
+  void clear() {
+    _isBusy = false;
+    _code = null;
+    _codeError = null;
+  }
 
 //Занят
   set isBusy(bool value) {
@@ -67,8 +74,11 @@ class ActivationData with ChangeNotifier {
         case HttpStatus.ok:
           {
             storage.setTokens(Tokens.fromJson(jsonDecode(response.body)));
-            Navigator.pushReplacement(
-                context, MaterialPageRoute(builder: (context) => RoomsPage()));
+            Navigator.pushAndRemoveUntil(
+              context,
+              MaterialPageRoute(builder: (context) => MenuPage()),
+              (Route<dynamic> route) => false,
+            );
             break;
           }
       }

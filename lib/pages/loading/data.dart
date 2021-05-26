@@ -1,6 +1,9 @@
 import 'package:mclimate/pages/home/page.dart';
+import 'package:mclimate/pages/menu/page.dart';
 import 'package:mclimate/pages/rooms/page.dart';
 import 'package:flutter/material.dart';
+import 'package:mclimate/pages/url/page.dart';
+import 'package:mclimate/services/storage.dart';
 import 'dart:io';
 import '../../services/account.dart' as account;
 import '../../components/error_widget.dart' as error;
@@ -21,17 +24,26 @@ class LoadingData with ChangeNotifier {
     if (response == null) {
       isBusy = false;
       showModalBottomSheet<void>(
-          context: context,
-          builder: (BuildContext context) {
-            return error.ErrorWidget(message: "Нет соединения");
-          }).whenComplete(() => refresh(context));
+              context: context,
+              builder: (BuildContext context) {
+                return error.ErrorWidget(message: "Нет соединения");
+              })
+          .whenComplete(() => Navigator.push(
+              context, MaterialPageRoute(builder: (context) => UrlPage())))
+          .then((value) => refresh(context));
     } else {
       if (response.statusCode == HttpStatus.ok) {
-        Navigator.pushReplacement(
-            context, MaterialPageRoute(builder: (context) => RoomsPage()));
+        Navigator.pushAndRemoveUntil(
+          context,
+          MaterialPageRoute(builder: (context) => MenuPage()),
+          (Route<dynamic> route) => false,
+        );
       } else {
-        Navigator.pushReplacement(
-            context, MaterialPageRoute(builder: (context) => HomePage()));
+        Navigator.pushAndRemoveUntil(
+          context,
+          MaterialPageRoute(builder: (context) => HomePage()),
+          (Route<dynamic> route) => false,
+        );
       }
     }
   }

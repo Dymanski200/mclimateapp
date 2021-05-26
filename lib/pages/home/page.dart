@@ -30,13 +30,11 @@ class HomePage extends StatelessWidget {
               Center(
                 child: SingleChildScrollView(
                   child: LoginCard(),
-                  physics: BouncingScrollPhysics(),
                 ),
               ),
               Center(
                 child: SingleChildScrollView(
                   child: RegistrationCard(),
-                  physics: BouncingScrollPhysics(),
                 ),
               ),
             ],

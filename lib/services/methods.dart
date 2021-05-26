@@ -66,3 +66,32 @@ Future<http.Response> getMethod(String controller) async {
   }
   return response;
 }
+
+Future<http.Response> deleteMethod(String controller, int id) async {
+  await Future.delayed(Duration(milliseconds: 500));
+  final url = await storage.getUrl("/api/$controller/$id");
+  var tokens = await storage.getTokens();
+  http.Response response;
+  for (int i = 0; i < 2; i++) {
+    try {
+      print("$url");
+      response = await http.delete(
+        url,
+        headers: {
+          "Content-Type": "application/json",
+          "Authorization": "Bearer ${tokens.accessToken}",
+        },
+      );
+      print(response.statusCode);
+      if (response.statusCode != HttpStatus.unauthorized)
+        break;
+      else {
+        await account.refresh();
+        tokens = await storage.getTokens();
+      }
+    } catch (er) {
+      return null;
+    }
+  }
+  return response;
+}
