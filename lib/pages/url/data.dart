@@ -25,7 +25,7 @@ class UrlData with ChangeNotifier {
 
   void setUrlMethod(context) async {
     if (url != null) {
-      setUrl(url);
+      setUrl(url.replaceAll(" ", ""));
     }
     url = null;
     Navigator.pushAndRemoveUntil(
