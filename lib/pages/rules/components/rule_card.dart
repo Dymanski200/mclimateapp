@@ -13,7 +13,7 @@ class RuleCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return InkWell(
       onLongPress: () {
-        context.read<RulesData>().delete(context, rule.deviceID, rule.id);
+        context.read<RulesData>().delete(rule.deviceID, rule.id);
       },
       child: Container(
         constraints: BoxConstraints(maxWidth: 400),

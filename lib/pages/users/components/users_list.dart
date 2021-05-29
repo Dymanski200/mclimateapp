@@ -13,6 +13,7 @@ class _UsersListState extends State<UsersList> {
   @override
   void initState() {
     super.initState();
+    context.read<UsersData>().currentContext = context;
     context.read<UsersData>().refresh(context);
   }
 

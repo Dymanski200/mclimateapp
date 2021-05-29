@@ -112,7 +112,7 @@ class ProfilesData with ChangeNotifier {
           {
             Navigator.pushAndRemoveUntil(
               currentContext,
-              MaterialPageRoute(builder: (context) => HomePage()),
+              MaterialPageRoute(builder: (currentContext) => HomePage()),
               (Route<dynamic> route) => false,
             );
             break;
@@ -157,7 +157,7 @@ class ProfilesData with ChangeNotifier {
           {
             Navigator.pushAndRemoveUntil(
               currentContext,
-              MaterialPageRoute(builder: (context) => HomePage()),
+              MaterialPageRoute(builder: (currentContext) => HomePage()),
               (Route<dynamic> route) => false,
             );
             break;

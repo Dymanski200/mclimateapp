@@ -15,6 +15,7 @@ class _DevicesListState extends State<DevicesList> {
   @override
   void initState() {
     super.initState();
+    context.read<DevicesData>().currentContext = context;
     context.read<DevicesData>().refresh(context, widget.id);
   }
 

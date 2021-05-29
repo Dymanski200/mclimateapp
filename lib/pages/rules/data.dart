@@ -13,6 +13,7 @@ class RulesData with ChangeNotifier {
   List<Rule> _rules = [];
   bool _isBusy = false;
   bool _isNotFound = false;
+  BuildContext currentContext;
 
   set isBusy(bool value) {
     _isBusy = value;
@@ -86,7 +87,7 @@ class RulesData with ChangeNotifier {
     }
   }
 
-  void delete(context, int deviceID, int id) async {
+  void delete(int deviceID, int id) async {
     isNotFound = false;
     rules = [];
     isBusy = true;
@@ -95,7 +96,7 @@ class RulesData with ChangeNotifier {
     if (response == null) {
       isBusy = false;
       showModalBottomSheet<void>(
-          context: context,
+          context: currentContext,
           builder: (BuildContext context) {
             return error.ErrorWidget(message: "Нет соединения");
           });
@@ -113,7 +114,7 @@ class RulesData with ChangeNotifier {
         case (HttpStatus.unauthorized):
           {
             Navigator.pushAndRemoveUntil(
-              context,
+              currentContext,
               MaterialPageRoute(builder: (context) => HomePage()),
               (Route<dynamic> route) => false,
             );
@@ -122,7 +123,7 @@ class RulesData with ChangeNotifier {
         case (HttpStatus.forbidden):
           {
             showModalBottomSheet<void>(
-                context: context,
+                context: currentContext,
                 builder: (BuildContext context) {
                   return error.ErrorWidget(message: "Нет доступа");
                 });
@@ -130,7 +131,7 @@ class RulesData with ChangeNotifier {
           }
       }
       isBusy = false;
-      refresh(context, deviceID);
+      refresh(currentContext, deviceID);
     }
   }
 }

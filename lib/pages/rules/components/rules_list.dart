@@ -17,6 +17,7 @@ class _RulesListState extends State<RulesList> {
   @override
   void initState() {
     super.initState();
+    context.read<RulesData>().currentContext = context;
     context.read<RulesData>().refresh(context, widget.deviceID);
   }
 

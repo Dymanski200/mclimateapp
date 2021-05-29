@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:mclimate/models/tokens.dart';
+import 'package:mclimate/pages/home/data.dart';
 import 'package:mclimate/pages/home/page.dart';
 import 'package:mclimate/pages/loading/page.dart';
 import 'package:mclimate/pages/rooms/page.dart';
@@ -7,6 +8,7 @@ import 'package:mclimate/pages/users/page.dart';
 import 'components/menu_item.dart';
 import '../../constants.dart';
 import '../../services/storage.dart' as storage;
+import 'package:provider/provider.dart';
 
 class MenuPage extends StatelessWidget {
   @override
@@ -23,6 +25,8 @@ class MenuPage extends StatelessWidget {
               icon: Icon(Icons.logout),
               onPressed: () {
                 storage.setTokens(new Tokens("", ""));
+                context.read<RegistrationData>().clear();
+                context.read<LoginData>().clear();
                 Navigator.pushAndRemoveUntil(
                   context,
                   MaterialPageRoute(builder: (context) => HomePage()),

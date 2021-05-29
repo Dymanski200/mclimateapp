@@ -17,7 +17,7 @@ class UserCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return InkWell(
       onLongPress: () {
-        context.read<UsersData>().delete(context, user.id);
+        context.read<UsersData>().delete(user.id);
       },
       child: Container(
         constraints: BoxConstraints(maxWidth: 400),

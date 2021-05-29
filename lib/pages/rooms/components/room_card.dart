@@ -17,7 +17,7 @@ class RoomCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return InkWell(
       onLongPress: () {
-        context.read<RoomsData>().delete(context, room.id);
+        context.read<RoomsData>().delete(room.id);
       },
       onTap: () {
         Navigator.push(context,

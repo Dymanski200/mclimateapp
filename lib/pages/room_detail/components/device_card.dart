@@ -21,7 +21,7 @@ class DeviceCard extends StatelessWidget {
             MaterialPageRoute(builder: (context) => RulesPage(device.id)));
       },
       onLongPress: () {
-        context.read<DevicesData>().delete(context, device.roomID, device.id);
+        context.read<DevicesData>().delete(device.roomID, device.id);
       },
       child: Container(
         constraints: BoxConstraints(maxWidth: 400),

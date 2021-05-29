@@ -13,6 +13,7 @@ class _RoomsListState extends State<RoomsList> {
   @override
   void initState() {
     super.initState();
+    context.read<RoomsData>().currentContext = context;
     context.read<RoomsData>().refresh(context);
   }
 

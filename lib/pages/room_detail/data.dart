@@ -17,6 +17,7 @@ class DevicesData with ChangeNotifier {
   List<Device> _devices = [];
   bool _isBusy = false;
   bool _isNotFound = false;
+  BuildContext currentContext;
 
   set devices(List<Device> value) {
     _devices = value;
@@ -39,7 +40,7 @@ class DevicesData with ChangeNotifier {
 
   bool get isNotFound => _isNotFound;
 
-  void delete(context, int roomID, int id) async {
+  void delete(int roomID, int id) async {
     isNotFound = false;
     devices = [];
     isBusy = true;
@@ -48,7 +49,7 @@ class DevicesData with ChangeNotifier {
     if (response == null) {
       isBusy = false;
       showModalBottomSheet<void>(
-          context: context,
+          context: currentContext,
           builder: (BuildContext context) {
             return error.ErrorWidget(message: "Нет соединения");
           });
@@ -61,7 +62,7 @@ class DevicesData with ChangeNotifier {
         case (HttpStatus.unauthorized):
           {
             Navigator.pushAndRemoveUntil(
-              context,
+              currentContext,
               MaterialPageRoute(builder: (context) => HomePage()),
               (Route<dynamic> route) => false,
             );
@@ -70,7 +71,7 @@ class DevicesData with ChangeNotifier {
         case (HttpStatus.forbidden):
           {
             showModalBottomSheet<void>(
-                context: context,
+                context: currentContext,
                 builder: (BuildContext context) {
                   return error.ErrorWidget(message: "Нет доступа");
                 });
@@ -78,7 +79,7 @@ class DevicesData with ChangeNotifier {
           }
       }
       isBusy = false;
-      refresh(context, roomID);
+      refresh(currentContext, roomID);
     }
   }
 
